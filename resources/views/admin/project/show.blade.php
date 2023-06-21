@@ -5,8 +5,8 @@
 @endsection
 
 @section('content')
-    <div class="container text-center mt-3 text-uppercase">
-        <h1>Single Project</h1>
+    <div class="container">
+        <h1 class="text-center mt-3 text-uppercase">Single Project</h1>
 
         <div class="col-3 m-auto">
             <div class="card h-100">

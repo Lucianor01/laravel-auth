@@ -28,7 +28,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.project.create');
     }
 
     /**
@@ -39,7 +39,25 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(
+            [
+                'title' => 'required|unique:projects|max:255',
+                'description' => 'required',
+                'price' => 'required',
+            ]
+
+        );
+
+        $form_data = $request->all();
+
+        // TRASFORMAZIONE TITOLO IN SLUG
+        $slug = Project::generateSlug($request->title);
+
+        $form_data['slug'] = $slug;
+
+        Project::create($form_data);
+
+        return redirect()->route('admin.project.index');
     }
 
     /**

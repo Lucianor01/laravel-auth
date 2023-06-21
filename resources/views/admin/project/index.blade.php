@@ -11,7 +11,7 @@
         <div class="row">
             @forelse ($project as $item)
                 <div class="col-3">
-                    <a href="{{ route('admin.project.show', $item) }}">
+                    <a class="text-decoration-none" href="{{ route('admin.project.show', $item) }}">
                         <div class="card h-100">
                             <div class="card-body">
                                 <h4 class="card-title text-uppercase">{{ $item->title }}</h4>
@@ -24,6 +24,9 @@
             @empty
                 <h2>There are no Projects!!</h2>
             @endforelse
+        </div>
+        <div>
+            <a class="btn btn-success d-table m-auto mt-5" href="{{ route('admin.project.create') }}">Create Project</a>
         </div>
     </div>
 @endsection
