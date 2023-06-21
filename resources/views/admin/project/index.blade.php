@@ -7,6 +7,16 @@
 @section('content')
     <h1 class="text-center mt-3 text-uppercase">My Project</h1>
 
+    {{-- ! ALERT EDIT PROJECT --}}
+    <div class="container">
+        @if (Session::has('success'))
+            <div class="alert alert-success alert-dismissible fade show mt-3">
+                <strong>{!! Session::get('success') !!}</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
+    </div>
+
     <div class="container">
         <div class="row">
             @forelse ($project as $item)
@@ -18,7 +28,8 @@
                                 <p class="card-text"><strong>Description:</strong> {{ $item->description }}</p>
                                 <p class="card-text"><strong>Price:</strong> {{ $item->price }}&euro;</p>
                                 <div class="d-flex mb-5 mt-3">
-                                    <a class="m-auto btn btn-success" href="{{ route('admin.project.edit') }}">Edit</a>
+                                    <a class="m-auto btn btn-success"
+                                        href="{{ route('admin.project.edit', $item) }}">Edit</a>
                                     <form class="m-auto" action="{{ route('admin.profile.destroy', $item) }}"
                                         method="POST">
                                         @csrf

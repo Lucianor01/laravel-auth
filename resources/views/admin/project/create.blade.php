@@ -39,7 +39,7 @@
                 @enderror
             </div>
 
-            <button class="btn btn-success">New Post</button>
+            <button type="submit" class="btn btn-success">New Post</button>
         </form>
     </div>
 @endsection

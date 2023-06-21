@@ -89,9 +89,27 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Project $project)
     {
-        //
+        $request->validate(
+            [
+                'title' => 'required|max:255',
+                'description' => 'required',
+                'price' => 'required',
+            ]
+
+        );
+
+        $form_data = $request->all();
+
+        // TRASFORMAZIONE TITOLO IN SLUG
+        $slug = Project::generateSlug($request->title);
+
+        $form_data['slug'] = $slug;
+
+        $project->update($form_data);
+
+        return redirect()->route('admin.project.index')->with('success', "Congratulations you have modified your project: " . "<span class='text-primary'>" . strtoupper($project->title) . "</span>");
     }
 
     /**
