@@ -9,9 +9,9 @@
                 <div class="col-3">
                     <div class="card h-100">
                         <div class="card-body">
-                            <h4 class="card-title">{{ $item->title }}</h4>
-                            <p class="card-text">{{ $item->description }}</p>
-                            <p class="card-text">{{ $item->price }}&euro;</p>
+                            <h4 class="card-title text-uppercase">{{ $item->title }}</h4>
+                            <p class="card-text"><strong>Description:</strong> {{ $item->description }}</p>
+                            <p class="card-text"><strong>Price:</strong> {{ $item->price }}&euro;</p>
                         </div>
                     </div>
                 </div>
