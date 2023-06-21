@@ -55,7 +55,7 @@ class ProjectController extends Controller
 
         $form_data['slug'] = $slug;
 
-        Project::create($form_data);
+        $new_project = Project::create($form_data);
 
         return redirect()->route('admin.project.index');
     }
@@ -77,9 +77,9 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Project $project)
     {
-        //
+        return view('admin.project.edit', compact('project'));
     }
 
     /**
@@ -100,8 +100,10 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Project $project)
     {
-        //
+        $project->delete();
+
+        return redirect()->route('admin.project.index');
     }
 }
