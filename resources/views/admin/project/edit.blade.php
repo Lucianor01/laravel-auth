@@ -7,6 +7,18 @@
 @section('content')
     <div class="container">
         <h1 class="text-center mt-3 text-uppercase">Edit Project</h1>
+
+        {{-- VALIDATION ERRORS LISTS --}}
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $item)
+                        <li>{{ $item }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         {{-- ! FORM --}}
         <form action="{{ route('admin.project.update', $project) }}" method="POST">
 

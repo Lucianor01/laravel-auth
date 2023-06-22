@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('description');
             $table->string('slug');
             $table->decimal('price', 8, 2);
+            $table->string('project_image')->nullable();
             $table->timestamps();
         });
     }

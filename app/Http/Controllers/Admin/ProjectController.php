@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProjectRequest;
+use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Http\Request;
 
 use App\Models\Admin\Project;
@@ -37,18 +39,20 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-        $request->validate(
-            [
-                'title' => 'required|unique:projects|max:255',
-                'description' => 'required',
-                'price' => 'required',
-            ]
+        // $request->validate(
+        //     [
+        //         'title' => 'required|unique:projects|max:255',
+        //         'description' => 'required',
+        //         'price' => 'required',
+        //     ]
 
-        );
+        // );
 
-        $form_data = $request->all();
+        // $form_data = $request->all();
+
+        $form_data = $request->validated();
 
         // TRASFORMAZIONE TITOLO IN SLUG
         $slug = Project::generateSlug($request->title);
@@ -89,18 +93,20 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
+    public function update(UpdateProjectRequest $request, Project $project)
     {
-        $request->validate(
-            [
-                'title' => 'required|max:255',
-                'description' => 'required',
-                'price' => 'required',
-            ]
+        // $request->validate(
+        //     [
+        //         'title' => 'required|max:255',
+        //         'description' => 'required',
+        //         'price' => 'required',
+        //     ]
 
-        );
+        // );
 
-        $form_data = $request->all();
+        // $form_data = $request->all();
+
+        $form_data = $request->validated();
 
         // TRASFORMAZIONE TITOLO IN SLUG
         $slug = Project::generateSlug($request->title);
