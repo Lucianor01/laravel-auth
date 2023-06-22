@@ -18,11 +18,13 @@
     </div>
 
     <div class="container">
-        <div class="row">
+        <div class="row row-gap-4">
             @forelse ($project as $item)
                 <div class="col-3">
                     <a class="text-decoration-none text-reset" href="{{ route('admin.project.show', $item) }}">
                         <div class="card h-100">
+                            <img class="card-img-top" src="{{ asset('storage/' . $item->project_image) }}"
+                                alt="{{ $item->title }}">
                             <div class="card-body">
                                 <h4 class="card-title text-uppercase">{{ $item->title }}</h4>
                                 <p class="card-text"><strong>Description:</strong> {{ $item->description }}</p>
@@ -30,7 +32,7 @@
                                 <div class="d-flex mb-5 mt-3">
                                     <a class="m-auto btn btn-success"
                                         href="{{ route('admin.project.edit', $item) }}">Edit</a>
-                                    <form class="m-auto" action="{{ route('admin.profile.destroy', $item) }}"
+                                    <form class="m-auto" action="{{ route('admin.project.destroy', $item) }}"
                                         method="POST">
                                         @csrf
                                         @method('DELETE')

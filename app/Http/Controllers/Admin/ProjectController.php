@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Http\Request;
 
 use App\Models\Admin\Project;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -41,16 +42,6 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        // $request->validate(
-        //     [
-        //         'title' => 'required|unique:projects|max:255',
-        //         'description' => 'required',
-        //         'price' => 'required',
-        //     ]
-
-        // );
-
-        // $form_data = $request->all();
 
         $form_data = $request->validated();
 
@@ -58,6 +49,15 @@ class ProjectController extends Controller
         $slug = Project::generateSlug($request->title);
 
         $form_data['slug'] = $slug;
+
+        //? CARICAMENTO IMMAGINE 
+        if ($request->hasFile('project_image')) {
+
+            // GENERAZIONE PATH DOVE SI SALVERA' L'IMMAGINE NEL PROGETTO
+            $path = Storage::disk('public')->put('project_images', $request->project_image);
+
+            $form_data['project_image'] = $path;
+        };
 
         $new_project = Project::create($form_data);
 
@@ -95,16 +95,6 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        // $request->validate(
-        //     [
-        //         'title' => 'required|max:255',
-        //         'description' => 'required',
-        //         'price' => 'required',
-        //     ]
-
-        // );
-
-        // $form_data = $request->all();
 
         $form_data = $request->validated();
 
@@ -112,6 +102,19 @@ class ProjectController extends Controller
         $slug = Project::generateSlug($request->title);
 
         $form_data['slug'] = $slug;
+
+        //? CARICAMENTO IMMAGINE 
+        if ($request->hasFile('project_image')) {
+
+            if ($project->project_image) {
+                Storage::delete($project->project_image);
+            }
+
+            // GENERAZIONE PATH DOVE SI SALVERA' L'IMMAGINE NEL PROGETTO
+            $path = Storage::disk('public')->put('project_images', $request->project_image);
+
+            $form_data['project_image'] = $path;
+        };
 
         $project->update($form_data);
 
@@ -126,6 +129,11 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+
+        if ($project->project_image) {
+            Storage::delete($project->project_image);
+        }
+
         $project->delete();
 
         return redirect()->route('admin.project.index');

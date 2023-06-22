@@ -10,6 +10,7 @@
 
         <div class="col-3 m-auto">
             <div class="card h-100">
+                <img class="card-img-top" src="{{ asset('storage/' . $project->project_image) }}" alt="{{ $project->title }}">
                 <div class="card-body">
                     <h4 class="card-title text-uppercase">{{ $project->title }}</h4>
                     <p class="card-text"><strong>Description:</strong> {{ $project->description }}</p>

@@ -20,7 +20,7 @@
         @endif
 
         {{-- ! FORM --}}
-        <form action="{{ route('admin.project.update', $project) }}" method="POST">
+        <form action="{{ route('admin.project.update', $project) }}" method="POST" enctype="multipart/form-data">
 
             @csrf
 
@@ -48,6 +48,15 @@
                 <input type="number" class="form-control" name="price" step="0.01" id="project-price"
                     aria-describedby="helpId" value="{{ old('price') ?? $project->price }}">
                 @error('price')
+                    <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <div class="mb-3">
+                <label for="project-image" class="form-label">Project Image</label>
+                <input type="file" class="form-control" name="project_image" id="project-image"
+                    aria-describedby="helpId">
+                @error('project_image')
                     <div class="alert alert-danger">{{ $message }}</div>
                 @enderror
             </div>
